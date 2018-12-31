@@ -4,14 +4,14 @@
             [clojure.test :refer :all]))
 
 
-(deftest day1-1
+(deftest day-1-1
   (testing "calculate frequency"
     (is (= (frequency [1 -2 3 1]) 3))
     (is (= (frequency [1 1 1]) 3))
     (is (= (frequency [1 1 -2]) 0))
     (is (= (frequency [-1 -2 -3]) -6))))
 
-(deftest day1-2
+(deftest day-1-2
   (testing "calculate first repeating frequency"
     (is (= (first-repeated-frequency [1 -2 3 1]) 2))
     (is (= (first-repeated-frequency [1 -1]) 0))
