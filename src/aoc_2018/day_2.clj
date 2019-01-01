@@ -5,7 +5,7 @@
             [taoensso.tufte :as tuf :refer [profile p]]))
 
 
-(def day-2-input
+(def input
   (slurp (io/resource "day_2_1_input.txt")))
 
 (defn parse-input

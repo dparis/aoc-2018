@@ -3,7 +3,7 @@
             [clojure.string :as str]))
 
 
-(def day-1-input
+(def input
   (slurp (io/resource "day_1_1_input.txt")))
 
 (defn ^:private parse-input
