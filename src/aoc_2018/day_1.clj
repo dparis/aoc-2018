@@ -8,9 +8,7 @@
 
 (defn ^:private parse-input
   [input]
-  (let [changes (-> input
-                    (str/replace #"\+" "")
-                    (str/split #"\n"))]
+  (let [changes (str/split input #"\n")]
     (map #(Integer/parseInt %) changes)))
 
 (defn frequency
