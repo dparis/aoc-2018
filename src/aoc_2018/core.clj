@@ -2,6 +2,7 @@
   (:require [aoc-2018.day-1 :as day-1]
             [aoc-2018.day-2 :as day-2]
             [aoc-2018.day-3 :as day-3]
+            [aoc-2018.day-4 :as day-4]
             [clojure.pprint :as pp])
   (:gen-class))
 
@@ -32,11 +33,19 @@
    (day-3/calculate-overlapping-square-inches day-3/input)
    (day-3/calculate-non-overlapping-claim-id day-3/input)))
 
+(defn ^:private day-4-result
+  []
+  (build-result
+   4
+   (day-4/calculate-guard-minute day-4/input)
+   (day-4/calculate-minute-guard day-4/input)))
+
 (defn ^:private print-result-table
   []
   (let [results (vector (day-1-result)
                         (day-2-result)
-                        (day-3-result))]
+                        (day-3-result)
+                        (day-4-result))]
     (pp/print-table ["Day" "First Star Answer" "Second Star Answer"] results)))
 
 (defn -main
