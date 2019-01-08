@@ -12,7 +12,7 @@
 
 (defn units-reactive?
   [units]
-  (let [[a b] units]
+  (let [[^char a ^char b] units]
     (if (Character/isLowerCase a)
       (= b (Character/toUpperCase a))
       (= b (Character/toLowerCase a)))))
@@ -48,12 +48,14 @@
 
 (defn ^:private filter-units
   [polymer unit]
-  (let [pattern (re-pattern (format "[%s%s]" unit (Character/toUpperCase unit)))]
+  (let [^char unit-char    unit
+              uc-unit-char (Character/toUpperCase unit-char)
+              pattern      (re-pattern (format "[%s%s]" unit-char uc-unit-char))]
     (str/replace polymer pattern "")))
 
 (defn remove-trouble-polymer
   [polymer]
-  (let [unit-set (set (map #(Character/toLowerCase %) polymer))]
+  (let [unit-set (set (map #(Character/toLowerCase ^char %) polymer))]
     (->> (for [unit unit-set
                :let [filtered-poly (filter-units polymer unit)
                      reduced-poly  (calculate-reduced-polymer filtered-poly)]]
