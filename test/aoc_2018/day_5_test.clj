@@ -10,7 +10,7 @@
 (def day-5-1-polymer-2
   "ksKkDDdaAdrRzZlkKLWwiInmMneEPIipBbNjJFfVvNv")
 
-(deftest day-4-1
+(deftest day-5-1
   (testing "reduce polymer"
     (is (= "dabCBAcaDA" (str/join (reduce-polymer day-5-1-polymer-1))))
     (is (= "ksv" (str/join (reduce-polymer day-5-1-polymer-2)))))

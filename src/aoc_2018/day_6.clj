@@ -13,9 +13,9 @@
 (defn ^:private parse-line
   [line]
   (->> (str/split line #", ")
-       (mapv #(Integer/parseInt %))))
+       (mapv #(Integer/parseInt (str/trim %)))))
 
-(defn ^:private parse-input
+(defn parse-input
   [input]
   (->> (str/split input #"\n")
        (mapv parse-line)
@@ -171,14 +171,14 @@
        (apply +)))
 
 (defn find-closest-region-area
-  [grid]
+  [grid max-area]
   (let [target-coords (:all-coords grid)
         grid-coords   (:grid-coords grid)]
     (->> (pmap #(sum-of-distances target-coords %) grid-coords)
-         (filter #(< % 10000))
+         (filter #(< % max-area))
          (count))))
 
 (defn calculate-closest-region-area
   [input]
   (let [grid (init-grid (parse-input input))]
-    (find-closest-region-area grid)))
+    (find-closest-region-area grid 10000)))
