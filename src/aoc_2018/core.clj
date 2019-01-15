@@ -5,6 +5,7 @@
             [aoc-2018.day-4 :as day-4]
             [aoc-2018.day-5 :as day-5]
             [aoc-2018.day-6 :as day-6]
+            [aoc-2018.day-7 :as day-7]
             [clojure.pprint :as pp])
   (:gen-class))
 
@@ -62,6 +63,14 @@
    (day-6/calculate-largest-coord-area day-6/input)
    (day-6/calculate-closest-region-area day-6/input)))
 
+(defn ^:private day-7-result
+  []
+  ;; ~55 msecs
+  (build-result
+   7
+   (day-7/calculate-step-order day-7/input)
+   (day-7/calculate-parallel-step-order-seconds day-7/input)))
+
 (defn ^:private print-result-table
   []
   (let [results (->> (vector (future (day-1-result))
@@ -69,7 +78,8 @@
                              (future (day-3-result))
                              (future (day-4-result))
                              (future (day-5-result))
-                             (future (day-6-result)))
+                             (future (day-6-result))
+                             (future (day-7-result)))
                      (mapv deref))]
     (pp/print-table ["Day" "First Star Answer" "Second Star Answer"] results)))
 

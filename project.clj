@@ -6,6 +6,7 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [com.climate/claypoole "1.1.4"]
                  [clojure.java-time "0.3.2"]
+                 [aysylu/loom "1.0.2"]
                  [org.clojure/math.combinatorics "0.1.4"]
                  [org.threeten/threeten-extra "1.2"]
                  [com.taoensso/tufte "2.0.1"]]
