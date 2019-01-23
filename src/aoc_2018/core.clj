@@ -7,6 +7,7 @@
             [aoc-2018.day-6 :as day-6]
             [aoc-2018.day-7 :as day-7]
             [aoc-2018.day-8 :as day-8]
+            [aoc-2018.day-9 :as day-9]
             [clojure.pprint :as pp])
   (:gen-class))
 
@@ -80,6 +81,14 @@
    (day-8/calculate-license-metadata-sum day-8/input)
    (day-8/calculate-root-node-value day-8/input)))
 
+(defn ^:private day-9-result
+  []
+  ;; ~9 seconds
+  (build-result
+   9
+   (day-9/calculate-winning-score day-9/input)
+   (day-9/calculate-winning-score-100x day-9/input)))
+
 (defn ^:private print-result-table
   []
   (let [results (->> (vector (future (day-1-result))
@@ -89,7 +98,8 @@
                              (future (day-5-result))
                              (future (day-6-result))
                              (future (day-7-result))
-                             (future (day-8-result)))
+                             (future (day-8-result))
+                             (future (day-9-result)))
                      (mapv deref))]
     (pp/print-table ["Day" "First Star Answer" "Second Star Answer"] results)))
 
