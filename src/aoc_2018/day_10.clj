@@ -171,6 +171,61 @@
       :png    (render-beacons-png extents positions)
       :shell  (render-beacons-shell extents positions))))
 
+(defn animate-message
+  [message-beacons]
+  (let [pre-seconds         -20
+        pre-message-beacons (progress-beacons message-beacons pre-seconds)
+        extents             (beacon-extents pre-message-beacons)
+        offset-x            (:offset-x extents)
+        offset-y            (:offset-y extents)
+        normalize-fn        (partial normalize-beacon offset-x offset-y)
+        block               2
+        double-width        (* 2 (:width extents))
+        double-height       (* 2 (:height extents))
+        image               (BufferedImage.
+                             (int (* block double-width))
+                             (int (* block double-height))
+                             BufferedImage/TYPE_INT_ARGB)
+        graphics            (.createGraphics image)
+        frame               (JFrame.)
+        pane                (.getContentPane frame) ]
+
+    (doto pane
+      (.setLayout (FlowLayout.))
+      (.add (JLabel. (ImageIcon. image))))
+
+    (doto frame
+      (.pack)
+      (.setVisible true))
+
+    (loop [second pre-seconds]
+      (when (<= second 0)
+        (let [beacons   (if (and (zero? offset-x) (zero? offset-y))
+                          (progress-beacons message-beacons second)
+                          (->> (progress-beacons message-beacons second)
+                               (map normalize-fn )))
+              positions (set (map (juxt :position-x :position-y) beacons))]
+          (doto graphics
+            (.setColor Color/BLACK)
+            (.fillRect
+             0 0
+             (int (* block double-width))
+             (int (* block double-height))))
+
+          (doseq [y (range double-height)
+                  x (range double-width)]
+            (when (contains? positions [x y])
+              (doto graphics
+                (.setColor Color/RED)
+                (.fillRect (* block x) (* block y) block block))))
+
+          (doto frame
+            (.pack)
+            (.repaint))
+
+          (Thread/sleep 100)
+          (recur (inc second)))))))
+
 (defn calculate-message!
   [input]
   (let [beacons      (parse-input input)
