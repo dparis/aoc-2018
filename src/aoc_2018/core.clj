@@ -8,6 +8,7 @@
             [aoc-2018.day-7 :as day-7]
             [aoc-2018.day-8 :as day-8]
             [aoc-2018.day-9 :as day-9]
+            [aoc-2018.day-10 :as day-10]
             [clojure.pprint :as pp])
   (:gen-class))
 
@@ -89,6 +90,15 @@
    (day-9/calculate-winning-score day-9/input)
    (day-9/calculate-winning-score-100x day-9/input)))
 
+(defn ^:private day-10-result
+  []
+  ;; ~4.5 seconds
+  (let [[message seconds] (day-10/calculate-message! day-10/input)]
+    (build-result
+     10
+     message
+     seconds)))
+
 (defn ^:private print-result-table
   []
   (let [results (->> (vector (future (day-1-result))
@@ -99,7 +109,8 @@
                              (future (day-6-result))
                              (future (day-7-result))
                              (future (day-8-result))
-                             (future (day-9-result)))
+                             (future (day-9-result))
+                             (future (day-10-result)))
                      (mapv deref))]
     (pp/print-table ["Day" "First Star Answer" "Second Star Answer"] results)))
 
