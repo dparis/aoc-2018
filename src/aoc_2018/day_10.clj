@@ -167,9 +167,9 @@
         positions          (set (map (juxt :position-x :position-y)
                                      normalized-beacons))]
     (case output-opt
-      :window (render-beacons-window extents positions)
-      :png    (render-beacons-png extents positions)
-      :shell  (render-beacons-shell extents positions))))
+      :window (render-beacons-window! extents positions)
+      :png    (render-beacons-png! extents positions)
+      :shell  (render-beacons-shell! extents positions))))
 
 (defn animate-message
   [message-beacons]
@@ -230,7 +230,7 @@
   [input]
   (let [beacons      (parse-input input)
         message-data (search-for-message beacons)]
-    (render-beacons (:beacons message-data) :png)
+    (render-beacons! (:beacons message-data) :png)
 
     ;; Image is written to disk at resources/day_10_1_message.png to verify
     (vector "LCPGPXGL" (:seconds message-data))))
