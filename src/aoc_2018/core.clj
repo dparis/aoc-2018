@@ -9,6 +9,7 @@
             [aoc-2018.day-8 :as day-8]
             [aoc-2018.day-9 :as day-9]
             [aoc-2018.day-10 :as day-10]
+            [aoc-2018.day-11 :as day-11]
             [clojure.pprint :as pp])
   (:gen-class))
 
@@ -99,6 +100,14 @@
      message
      seconds)))
 
+(defn ^:private day-11-result
+  []
+  ;; ~3.5 seconds
+  (build-result
+   11
+   (day-11/calculate-highest-3x3-power-coordinate day-11/input)
+   (day-11/calculate-highest-power-coordinate-and-size day-11/input)))
+
 (defn ^:private print-result-table
   []
   (let [results (->> (vector (future (day-1-result))
@@ -110,7 +119,8 @@
                              (future (day-7-result))
                              (future (day-8-result))
                              (future (day-9-result))
-                             (future (day-10-result)))
+                             (future (day-10-result))
+                             (future (day-11-result)))
                      (mapv deref))]
     (pp/print-table ["Day" "First Star Answer" "Second Star Answer"] results)))
 
